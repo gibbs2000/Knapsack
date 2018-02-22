@@ -27,17 +27,20 @@ public class KnapSack {
 	 *         possible value without exceeding limit.
 	 */
 	public static int knapsackSumA(int[] w, int n, int limit) {
-		if (n < 0 || w[n] > limit) {
+		if (n < 0) {
 			return 0;
 		}
 
 		else {
+
 			int excLast = knapsackSumA(w, n - 1, limit);
 			int incLast = w[n] + knapsackSumA(w, n - 1, limit - w[n]);
-			if (Math.max(excLast, incLast) == incLast) {
-				return incLast;
-			} else
+			if (excLast > incLast || w[n] > limit) {
 				return excLast;
+
+			} else {
+				return incLast;
+			}
 		}
 
 	}
@@ -58,7 +61,7 @@ public class KnapSack {
 	 *         possible value without exceeding limit.
 	 */
 	public static int knapsackSumB(int[] w, int n, int limit, List<Integer> list) {
-		if (n < 0 || w[n] > limit) {
+		if (n < 0) {
 			return 0;
 		}
 
@@ -68,17 +71,26 @@ public class KnapSack {
 			list2.add(w[n]);
 			int excLast = knapsackSumB(w, n - 1, limit, list1);
 			int incLast = w[n] + knapsackSumB(w, n - 1, limit - w[n], list2);
-			if (Math.max(excLast, incLast) == incLast) {
-				list.addAll(list2);
-				return incLast;
-			} else {
+			if (excLast > incLast || w[n] > limit) {
 				list.addAll(list1);
 				return excLast;
+
+			} else {
+
+				list.addAll(list2);
+				return incLast;
 			}
 		}
 
 	}
 
+	/**
+	 * Creates and returns a String of file names from a given Scanner source
+	 * 
+	 * @param in
+	 *            the Scanner source file
+	 * @return a list of file names
+	 */
 	public static ArrayList<String> createFiles(Scanner in) {
 		ArrayList<String> files = new ArrayList<String>();
 		while (in.hasNextLine()) {
@@ -88,11 +100,23 @@ public class KnapSack {
 
 	}
 
+	/**
+	 * Processes a list of filenames and uses the Knapsack method on them. After
+	 * doing so, writes the output to a PrintWriter
+	 * 
+	 * @param files
+	 *            A list of files to test Knapsack with
+	 * @param output
+	 *            the output file where the results are written to
+	 */
 	public static void processFiles(ArrayList<String> files, PrintWriter output) {
 		for (String f : files) {
 			Scanner in = fileToScanner(f);
 			String out = f + "\t" + in.nextInt() + "\t";
-
+			ArrayList<Integer> items = new ArrayList<Integer>();
+			while (in.hasNextLine()) {
+				items.add(in.nextInt());
+			}
 			output.println(out);
 			output.println();
 		}
