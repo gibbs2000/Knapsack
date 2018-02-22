@@ -112,10 +112,10 @@ public class KnapSack {
 	public static void processFiles(ArrayList<String> files, PrintWriter output) {
 		for (String f : files) {
 			Scanner in = fileToScanner(f);
-			String out = f + "\t" + in.nextInt() + "\t";
+			String out = f + "\t" + in.nextLine() + "\t";
 			ArrayList<Integer> items = new ArrayList<Integer>();
 			while (in.hasNextLine()) {
-				items.add(in.nextInt());
+				items.add(Integer.parseInt(in.nextLine().trim()));
 			}
 			output.println(out);
 			output.println();
@@ -128,9 +128,7 @@ public class KnapSack {
 	 * 
 	 * @param fName
 	 *            The String name of a file
-	 * @param fileNum
-	 *            The file number, used in case of exceptions or errors to tell user
-	 *            which file failed
+	 * 
 	 * @return A Scanner of the file with the given file name
 	 */
 	public static Scanner fileToScanner(String fName) {
