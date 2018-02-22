@@ -110,16 +110,39 @@ public class KnapSack {
 	 *            the output file where the results are written to
 	 */
 	public static void processFiles(ArrayList<String> files, PrintWriter output) {
-		for (String f : files) {
-			Scanner in = fileToScanner(f);
-			String out = f + "\t" + in.nextLine() + "\t";
-			ArrayList<Integer> items = new ArrayList<Integer>();
-			while (in.hasNextLine()) {
-				items.add(Integer.parseInt(in.nextLine().trim()));
+		for (int i = 0; i < files.size(); i++) {
+			if (files.get(i) != "") {
+				Scanner in = fileToScanner(files.get(i));
+				String out = files.get(i) + "\t" + in.nextLine() + "\t";
+				ArrayList<Integer> weights = new ArrayList<Integer>();
+				while (in.hasNextLine()) {
+					weights.add(Integer.parseInt(in.nextLine().trim()));
+				}
+
+				int[] arrWeights = new int[weights.size()];
+				for (int w = 0; w < arrWeights.length; w++) {
+					arrWeights[w] = weights.get(w);
+				}
+				output.println(out);
+				output.println();
 			}
-			output.println(out);
-			output.println();
 		}
+
+	}
+
+	public static String performKnapSack(ArrayList<String> files, int limit, int[] weights) {
+		String out = "";
+		List<Integer> bag = new ArrayList<Integer>();
+		knapsackSumB(weights, weights.length, limit, bag);
+		for (int w : weights) {
+			if (bag.contains(w)) {
+				out = out + "1 " + w + " pound watermelon";
+			} else {
+				out = out + "0 " + w + "pound watermelons";
+			}
+		}
+
+		return out;
 
 	}
 
