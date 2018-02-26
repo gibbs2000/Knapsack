@@ -9,22 +9,42 @@ import java.util.Scanner;
  *
  */
 public class KnapSackTester {
+	/**
+	 * Tests the Knapsasck problem and prints the output to "knapsack.txt"
+	 */
 	public static void main(String[] args) {
 		String fName = "";
-		if (args.length < 1) {
-			System.out.println("You did not input a file name. \nPlease enter a file name: ");
+		if (args.length >= 1) {
+
+			fName = args[0];
+		} else {
+			System.out.println(
+					"You did not input a file name." + " \nPlease enter a valid file name ending with \".txt\": ");
 			Scanner in = new Scanner(System.in);
 			fName = in.next();
+			int counter = 0;
+			while (fName.length() < 5 || !".txt".equals(fName.substring(fName.length() - 4))) {
+				if (counter < 5) {
+					System.out.println("Invalid file name. \nPlease enter a valid file name ending with \".txt\": ");
+				} else {
+					System.out.println(
+							"You are really trying my patience here.\nPlease enter a valid file name ending with \".txt\":  ");
+				}
+				fName = in.next();
+				counter++;
+
+			}
 			in.close();
-		} else {
-			fName = args[0];
 		}
 
 		Scanner input = KnapSack.fileToScanner(fName);
-		PrintWriter output = KnapSack.outputFile("knapsack.txt");
+		PrintWriter output = KnapSack.outputFile(KnapConstants.outputLoc);
 
 		ArrayList<String> files = KnapSack.createFiles(input);
 		KnapSack.processFiles(files, output);
+
+		input.close();
+		output.close();
 
 		// System.out.println(KnapSack.knapsackSumA(KnapConstants.items, 4,
 		// KnapConstants.limit));

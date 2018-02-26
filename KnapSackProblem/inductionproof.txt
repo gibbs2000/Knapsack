@@ -1,0 +1,11 @@
+Induction Proof:
+
+For knapsack, the base case is if n = 0 meaning there is no item at that stage or if the limit (remaining weight) is 0. 
+If the base case occurs, then 0 items of that stage should be added. This is correct.
+
+Now, to prove case n, we assume it works for n-1. Since it works for n-1, we just have to check stage n. At stage n, we test both
+including 1 item from stage n and excluding items from stage n. In either of these cases, regardless of the result, we call n-1, which
+we already assume is true because of induction. We then choose the best from including n and excluding n. Because n-1 is assumed to work,
+the method works.
+
+

@@ -1,0 +1,36 @@
+watermelonTest01.txt	132	2, 17, 5, 3 
+
+1 2 pound watermelons
+1 17 pound watermelons
+1 5 pound watermelons
+1 3 pound watermelons
+
+
+watermelonTest02.txt	25	30, 40, 50 
+
+0 30 pound watermelons
+0 40 pound watermelons
+0 50 pound watermelons
+
+
+watermelonTest03.txt	300	9, 20, 30, 40, 50, 200 
+
+0 9 pound watermelons
+1 20 pound watermelons
+1 30 pound watermelons
+0 40 pound watermelons
+1 50 pound watermelons
+1 200 pound watermelons
+
+
+watermelonTest04.txt	25	5, 6, 2, 3, 9, 12, 48 
+
+1 5 pound watermelons
+1 6 pound watermelons
+1 2 pound watermelons
+0 3 pound watermelons
+0 9 pound watermelons
+1 12 pound watermelons
+0 48 pound watermelons
+
+

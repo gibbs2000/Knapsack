@@ -94,7 +94,11 @@ public class KnapSack {
 	public static ArrayList<String> createFiles(Scanner in) {
 		ArrayList<String> files = new ArrayList<String>();
 		while (in.hasNextLine()) {
-			files.add(in.nextLine());
+			String l = in.nextLine().trim();
+			if (!l.equals("")) {
+				files.add(l);
+			}
+
 		}
 		return files;
 
@@ -110,35 +114,70 @@ public class KnapSack {
 	 *            the output file where the results are written to
 	 */
 	public static void processFiles(ArrayList<String> files, PrintWriter output) {
-		for (int i = 0; i < files.size(); i++) {
-			if (files.get(i) != "") {
-				Scanner in = fileToScanner(files.get(i));
-				String out = files.get(i) + "\t" + in.nextLine() + "\t";
+		for (String f : files) {
+
+			Scanner in = fileToScanner(f);
+
+			if (in == null) {
+				output.println("No file " + f + " found. Skipping file " + f + " ...");
+				output.println();
+
+			} else {
+				int limit = Integer.parseInt(in.nextLine().trim());
+				// Creates the header for each test file
+				String out = f + "\t" + limit + "\t";
+
+				// Creates an array list of the weights to be checked with Knapsack
+				// (An array list is used temporarily for ease of access)
 				ArrayList<Integer> weights = new ArrayList<Integer>();
 				while (in.hasNextLine()) {
-					weights.add(Integer.parseInt(in.nextLine().trim()));
+					String l = in.nextLine().trim();
+					if (!l.equals("")) {
+						weights.add(Integer.parseInt(l));
+					}
 				}
 
+				// Adds the array list of weights to the output
+				for (int i = 0; i < weights.size(); i++) {
+					out = out + weights.get(i);
+					if (i < weights.size() - 1) {
+						out = out + ", ";
+					} else
+						out = out + " ";
+				}
+
+				// Converts the array list to an array to test the knapsack problem
 				int[] arrWeights = new int[weights.size()];
 				for (int w = 0; w < arrWeights.length; w++) {
 					arrWeights[w] = weights.get(w);
 				}
+				// Performs knapsack problem on the file then prints to the output
+				out = out + "\n\n" + performKnapSack(limit, arrWeights);
 				output.println(out);
 				output.println();
 			}
 		}
-
 	}
 
-	public static String performKnapSack(ArrayList<String> files, int limit, int[] weights) {
+	/**
+	 * Performs the knapsack problem on a given set of weights and a limit and
+	 * returns the result as a String
+	 * 
+	 * @param limit
+	 *            the max capacity of the knapsack container
+	 * @param weights
+	 *            an array of weights with which the optimal configuration is found
+	 * @return the results as a String
+	 */
+	public static String performKnapSack(int limit, int[] weights) {
 		String out = "";
 		List<Integer> bag = new ArrayList<Integer>();
-		knapsackSumB(weights, weights.length, limit, bag);
+		knapsackSumB(weights, weights.length - 1, limit, bag);
 		for (int w : weights) {
 			if (bag.contains(w)) {
-				out = out + "1 " + w + " pound watermelon";
+				out = out + "1 " + w + " pound watermelons\n";
 			} else {
-				out = out + "0 " + w + "pound watermelons";
+				out = out + "0 " + w + " pound watermelons\n";
 			}
 		}
 
@@ -162,7 +201,7 @@ public class KnapSack {
 		try {
 			words = new Scanner(fileName);
 		} catch (FileNotFoundException ex) {
-			System.out.print("Unable to Open File");
+			System.out.println("Unable to Open file: " + fName + ", please see output");
 			return null;
 
 		}
@@ -188,7 +227,7 @@ public class KnapSack {
 		try {
 			output = new PrintWriter(fileName);
 		} catch (FileNotFoundException ex) {
-			System.out.print("Cannot open " + fName);
+			System.out.println("Cannot open " + fName);
 			return null;
 
 		}

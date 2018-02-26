@@ -1,0 +1,12 @@
+Tests Explanation:
+
+Input Files
+test01.txt tests the Knapsack problem with actual files
+test02.txt tests how the program responds to an input with blank lines and files that dont exis
+
+
+Watermelon Files
+watermelonTest01.txt has a large weight limit so it should work correctly with 1 item of each weight included
+watermelonTest02.txt has a weight limit less than any individual item so it should have 0 items total
+watermelonTest03.txt has a medium weight limit so some items will fit and some will be excluded for a max weight of 300 out of 300 capacity
+watermelonTest04.txt is empty and so the program should respond appropriately
