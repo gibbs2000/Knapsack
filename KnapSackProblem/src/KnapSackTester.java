@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class KnapSackTester {
 	/**
-	 * Tests the Knapsasck problem and prints the output to "knapsack.txt"
+	 * Tests the Knapsack problem and prints the output to "knapsack.txt"
 	 */
 	public static void main(String[] args) {
 		String fName = "";
